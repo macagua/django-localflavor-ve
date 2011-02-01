@@ -22,7 +22,6 @@ More than a long speech, here the list of the main features :
   * A field that validates as Venezuelan phone postal code.
   * A Select widget that uses a list of Venezuelan regions as its choices.
   * A Select widget that uses a list of Venezuelan states as its choices.
-  * A Select widget that uses a list of Venezuelan municipalities as its choices.
 
 Tested 
 ======
@@ -37,6 +36,7 @@ TODO
   * Define on based ISO 3166-2:VE the code for regions,states, municipalities and parishes.
   * A Select widget that uses a list of Venezuelan municipalities as its choices.
   * A Select widget that uses a list of Venezuelan parishes as its choices.
+  * A Example of use the Venezuela Local Flavor
 
 
 .. _django: http://djangoproject.com/
