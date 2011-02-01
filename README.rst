@@ -2,19 +2,15 @@
 Django Local Flavor For Venezuela
 =================================
 
-A django_ localflavor_ For Venezuela.
+A Django_ localflavor_ For Venezuela.
 
 - Code repository: http://github.com/macagua/django-local-flavor-ve
-- Questions and comments to http://github.com/macagua/django-local-flavor-ve/issues
-- Report bugs at http://github.com/macagua/django-local-flavor-ve/issues
-
+- Questions, comments and bug reports to http://github.com/macagua/django-local-flavor-ve/issues
 
 .. contents::
 
 Features
 ========
-
-More than a long speech, here the list of the main features :
 
   * A field that accepts a 'classic' NNNN Zip Zone Code.
   * A field that validates 'Cédula de Identidad' (DNI) numbers.
@@ -26,20 +22,16 @@ More than a long speech, here the list of the main features :
 Tested 
 ======
 
-  * Django 1.1.1 and Python 5
-
+  * Django 1.1.1 and Python 2.5
 
 TODO
 ====
 
-  * Add suport for the Django last version 
-  * Define on based ISO 3166-2:VE the code for regions,states, municipalities and parishes.
-  * A Select widget that uses a list of Venezuelan municipalities as its choices.
-  * A Select widget that uses a list of Venezuelan parishes as its choices.
-  * A Example of use the Venezuela Local Flavor
+  * Add suport for the Django latest version 
+  * Implement fields for regions, states, municipalities and parishes based on ISO 3166-2:VE regulations.
+  * Add examples to use the Venezuelan Local Flavor
 
-
-.. _django: http://djangoproject.com/
+.. _Django: http://djangoproject.com/
 .. _localflavor: http://docs.djangoproject.com/en/dev/ref/contrib/localflavor/
   
 
