@@ -25,7 +25,7 @@ More than a long speech, here the list of the main features :
   * A Select widget that uses a list of Venezuelan municipalities as its choices.
 
 Tested 
-------
+======
 
   * Django 1.1.1 and Python 5
 
