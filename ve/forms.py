@@ -3,25 +3,32 @@ Venezuelan-specific form helpers.
 """
 
 from django.forms import ValidationError
-from django.forms.fields import Select, CharField, RegexField, Field, EMPTY_VALUES
+from django.forms.fields import Select, CharField, RegexField, Field,\
+     EMPTY_VALUES
 from django.utils.encoding import smart_unicode
 from django.utils.translation import ugettext_lazy as _
 
 
 class VEZipCodeField(RegexField):
-"""
+    """
     A field that accepts a 'classic' NNNN Zip Zone Code.
 
     See http://www.ipostel.gob.ve/nlinea/CodPost_entidad.php
-"""
+    """
+
     default_error_messages = {
-        'invalid': _(u"Enter a zip code in the format XXXX"),
-        'max_digits': _(u"This field requires 4 digits."),
+        'invalid' : _(u"Enter a zip code in the format XXXX"),
+        'max_digits' : _(u"This field requires 4 digits."),
     }
 
     def __init__(self, *args, **kwargs):
-        super(VEZipCodeField, self).__init__(r'^\d{4}$',
-        max_length=4, min_length=4, *args, **kwargs)
+        super(VEZipCodeField, self).__init__(
+            r'^\d{4}$',
+            max_length=4,
+            min_length=4,
+            *args,
+            **kwargs
+            )
 
     def clean(self, value):
         """
@@ -37,7 +44,6 @@ class VEZipCodeField(RegexField):
         if len(value) not in (4):
             raise ValidationError(self.error_messages['max_digits'])
 
-
 class VEDNIField(CharField):
     """
     A field that validates 'Cédula de Identidad' (DNI) numbers.
@@ -48,8 +54,12 @@ class VEDNIField(CharField):
     }
 
     def __init__(self, *args, **kwargs):
-        super(VEDNIField, self).__init__(max_length=10, min_length=7, *args,
-                **kwargs)
+        super(VEDNIField, self).__init__(
+            max_length=10,
+            min_length=7,
+            *args,
+            **kwargs
+            )
 
     def clean(self, value):
         """
@@ -70,21 +80,26 @@ class VEDNIField(CharField):
         return value
 
 
-class VERifField(RegexField):
-"""
+class VERIFField(RegexField):
+    """
     A field that validates a Register Tax Information 
     (Registro Único de Información Fiscal - RIF) issued by SENIAT.
 
     See http://www.seniat.gob.ve/portal/page/portal/MANEJADOR_CONTENIDO_SENIAT/05MENU_HORIZONTAL/5.1ASISTENCIA_CONTRIBUYENTE/5.1.2ORIENTACION_GENERA/5.1.2.2TRAMITES_ADMINISTR/INFORMACION_01_GENERAL.pdf
-"""
+    """
     default_error_messages = {
-        #'invalid': _(u"Enter a RIF code in the format like this V123456789"),
-        'max_digits': _(u"This field requires 10 digits, if the RIF code is less than nine (9) digits, fill with zeros (0) to the left."),
+        #'invalid' : _(u"Enter a RIF code in the format like this V123456789"),
+        'max_digits' : _(u"This field requires 10 digits, if the RIF code is less than nine (9) digits, fill with zeros (0) to the left."),
     }
 
     def __init__(self, *args, **kwargs):
-        super(VERifField, self).__init__(r'^(V|G)\d{9}$',
-        max_length=10, min_length=10, *args, **kwargs)
+        super(VERifField, self).__init__(
+            r'^(V|G)\d{9}$',
+            max_length=10,
+            min_length=10,
+            *args,
+            **kwargs
+            )
 
     def clean(self, value):
         """
@@ -107,13 +122,18 @@ class VEPhoneField(RegexField):
     Valid code is XXXX-XXXXXXX where X is digit.
     """
     default_error_messages = {
-        #'invalid': _(u'Phone numbers must be in XXXX-XXXXXXX format.'),
-        'max_digits': _(u"This field requires 12 digits."),
+        #'invalid' : _(u'Phone numbers must be in XXXX-XXXXXXX format.'),
+        'max_digits' : _(u"This field requires 12 digits."),
     }
 
     def __init__(self, *args, **kwargs):
-        super(VEPhoneField, self).__init__(r'^\d{4}-\d{7}$',
-            max_length=12, min_length=12, *args, **kwargs)
+        super(VEPhoneField, self).__init__(
+            r'^\d{4}-\d{7}$',
+            max_length=12,
+            min_length=12,
+            *args,
+            **kwargs
+            )
 
     def clean(self, value):
         """
@@ -161,7 +181,7 @@ class VEStateChoiceField(Field):
                  initial=None, help_text=None):
         super(VEStateChoiceField, self).__init__(required, widget, label,
                                                  initial, help_text)
-        from br_states import STATE_CHOICES
+        from ve_states import STATE_CHOICES
         self.widget.choices = STATE_CHOICES
 
     def clean(self, value):
@@ -177,26 +197,26 @@ class VEStateChoiceField(Field):
         return value
 
 
-class VESMunicipalityelect(Select):
+class VESMunicipalitySelect(Select):
     """
     A Select widget that uses a list of Venezuelan municipalities as its choices.
     """
-
+    pass
 
 class VEMunicipalityChoiceField(Field):
     """
     A choice field that uses a list of Venezuelan municipalities as its choices.
     """
-
+    pass
 
 class VEParishesSelect(Select):
     """
     A Select widget that uses a list of Venezuelan parishes as its choices.
     """
-
+    pass
 
 class VEParishesChoiceField(Field):
     """
     A choice field that uses a list of Venezuelan parishes as its choices.
     """
-
+    pass
