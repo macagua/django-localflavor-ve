@@ -158,6 +158,44 @@ class VERegionsSelect(Select):
         from ve_regions import REGION_CHOICES
         super(VERegionsSelect, self).__init__(attrs, choices=REGION_CHOICES)
 
+class VERegionChoiceField(Field):
+    """
+    A choice field with a list of Venezuelan regions as its choices
+    """
+    widget = Select
+    default_error_messages = {
+        "invalid" : _(u'Select one of the available valid Venezuelan regions.'),
+        }
+
+    def __init__(self,
+                 required=True,
+                 widget=None,
+                 label=None,
+                 initial=None,
+                 help_text=None
+                 ):
+        super(VERegionChoiceField, self).__init__(
+            required,
+            widget,
+            label,
+            initial,
+            help_text
+            )
+        from ve_regions import REGION_CHOICES
+        self.widget.choices = REGION_CHOICES
+
+    def clean(self, value):
+        value = super(VERegionChoiceField, self).clean(value)
+        if value in EMPTY_VALUES:
+            value = u''
+        value = smart_unicode(value)
+        if value == u'':
+            return value
+        valid_values = set([smart_unicode(k) for k, v in self.widget.choices])
+        if value not in valid_values:
+            raise ValidationError(self.error_messages['invalid'])
+        return value
+
 
 class VEStateSelect(Select):
     """
