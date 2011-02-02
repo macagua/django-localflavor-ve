@@ -28,10 +28,10 @@ TODO
 ====
 
   * Add suport for the Django latest version 
-  * Implement fields for regions, states, municipalities and parishes based on ISO 3166-2:VE regulations.
+  * Implement fields for regions, states, municipalities and parishes based on ISO-3166-2:VE_ regulations.
   * Add examples to use the Venezuelan Local Flavor
 
 .. _Django: http://djangoproject.com/
 .. _localflavor: http://docs.djangoproject.com/en/dev/ref/contrib/localflavor/
-  
+.. _ISO-3166-2:VE: https://secure.wikimedia.org/wikipedia/en/wiki/ISO_3166-2:VE
 
