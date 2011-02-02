@@ -22,7 +22,7 @@ Features
 Tested 
 ======
 
-  * Django 1.1.1 and Python 2.5
+  * Django 1.2.4 and Python 2.6
 
 TODO
 ====
