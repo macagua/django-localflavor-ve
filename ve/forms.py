@@ -3,6 +3,8 @@
 Venezuelan-specific form helpers.
 """
 
+import re
+
 from django.forms import ValidationError
 from django.forms.fields import Select, CharField, RegexField, Field,\
      EMPTY_VALUES
@@ -42,7 +44,7 @@ class VEZipCodeField(RegexField):
             value = value.replace('.', '')
         if not value.isdigit():
             raise ValidationError(self.error_messages['invalid'])
-        if len(value) not in (4):
+        if len(value) not in (4,):
             raise ValidationError(self.error_messages['max_digits'])
 
 class VEDNIField(CharField):
@@ -113,7 +115,7 @@ class VERIFField(RegexField):
         #    value = value.replace('.', '')
         #if not value.isdigit():
         #    raise ValidationError(self.error_messages['invalid'])
-        if len(value) not in (10):
+        if len(value) not in (10, ):
             raise ValidationError(self.error_messages['max_digits'])
 
 
@@ -147,7 +149,7 @@ class VEPhoneField(RegexField):
         #    value = value.replace('.', '')
         #if not value.isdigit():
         #    raise ValidationError(self.error_messages['invalid'])
-        if len(value) not in (12):
+        if len(value) not in (12, ):
             raise ValidationError(self.error_messages['max_digits'])
 
 
