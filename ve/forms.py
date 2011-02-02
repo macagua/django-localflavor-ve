@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Venezuelan-specific form helpers.
 """
@@ -93,7 +94,7 @@ class VERIFField(RegexField):
     }
 
     def __init__(self, *args, **kwargs):
-        super(VERifField, self).__init__(
+        super(VERIFField, self).__init__(
             r'^(V|G)\d{9}$',
             max_length=10,
             min_length=10,
@@ -105,7 +106,7 @@ class VERIFField(RegexField):
         """
         Value can be a string either in the VXXXXXXXXX and GXXXXXXXXX format.
         """
-        value = super(VERifField, self).clean(value)
+        value = super(VERIFField, self).clean(value)
         if value in EMPTY_VALUES:
             return u''
         #if not value.isdigit():
