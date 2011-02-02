@@ -35,6 +35,6 @@ STATE_CHOICES = (
     ('VE-T', _(u'Trujillo')),
     ('VE-W', _(u'Vargas')),
     ('VE-U', _(u'Yaracuy')),
-    ('VE-V', _(u'Zulia'),
+    ('VE-V', _(u'Zulia')),
 )
 
