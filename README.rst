@@ -32,20 +32,24 @@ For install the source code execute the follow command:
 For test your installation execute the follows commands:
 
   $ python manage.py shell
+
   >>> from django.contrib.localflavor.ve import forms
+
   >>> dir(forms)
+
   >>> exit()
 
 For test a Django project example execute the follow command:
 
   $ cd django-local-flavor-ve/example
+
   $ python manage.py runserver
 
 Now that the server's running, visit http://127.0.0.1:8000/example/ with your Web browser. You'll see a "A Form example for Venezuelan localflavor" page. Then It worked!
 
 Using Venezuela Local Flavor on my project
 ==========================================
-  * A example to use the Venezuelan Local Flavor into your Django_ projects was added here_.
+A example to use the Venezuelan Local Flavor into your Django_ projects was added here_.
 
 Tested 
 ======
