@@ -26,15 +26,18 @@ For download the source code execute the follow command:
   $ git clone git://github.com/macagua/django-local-flavor-ve.git
 
 For install the source code execute the follow command:
+
   $ mv django-local-flavor-ve/ve /path/to/django/contrib/localflavor/
 
 For test your installation execute the follows commands:
+
   $ python manage.py shell
   >>> from django.contrib.localflavor.ve import forms
   >>> dir(forms)
   >>> exit()
 
 For test a Django project example execute the follow command:
+
   $ cd django-local-flavor-ve/example
   $ python manage.py runserver
 
