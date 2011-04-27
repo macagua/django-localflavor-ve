@@ -97,7 +97,7 @@ class VERIFField(RegexField):
 
     def __init__(self, *args, **kwargs):
         super(VERIFField, self).__init__(
-            r'^(V|G)\d{9}$',
+            r'^(V|E|P|J|G)\d{9}$',
             max_length=10,
             min_length=10,
             *args,
