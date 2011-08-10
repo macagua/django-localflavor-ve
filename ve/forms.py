@@ -90,34 +90,58 @@ class VERIFField(RegexField):
 
     See http://www.seniat.gob.ve/portal/page/portal/MANEJADOR_CONTENIDO_SENIAT/05MENU_HORIZONTAL/5.1ASISTENCIA_CONTRIBUYENTE/5.1.2ORIENTACION_GENERA/5.1.2.2TRAMITES_ADMINISTR/INFORMACION_01_GENERAL.pdf
     """
+
+    VENEZOLANO = '1'
+    EXTRANJERO = '2'
+    JURIDICO = '3'
+    FIRMA_PERSONAL = '4'
+    GUBERNAMENTAL = '5'
+    rif_first_char = {
+        'v':VENEZOLANO,
+        'e':EXTRANJERO,
+        'j':JURIDICO,
+        'p':FIRMA_PERSONAL,
+        'g':GUBERNAMENTAL,
+        }
+    
     default_error_messages = {
-        #'invalid' : _(u"Enter a RIF code in the format like this V123456789"),
-        'max_digits' : _(u"This field requires 10 digits, if the RIF code is less than nine (9) digits, fill with zeros (0) to the left."),
+        'invalid': _('Introduzca un RIF valido de la forma A-XXXXXXXX-X o AXXXXXXXXX.'),
+        'checksum': _('RIF invalido.'),
     }
 
     def __init__(self, *args, **kwargs):
-        super(VERIFField, self).__init__(
-            r'^(V|E|P|J|G)\d{9}$',
-            max_length=10,
-            min_length=10,
-            *args,
-            **kwargs
-            )
-
+        super(RIFField, self).__init__(r'^([jJ|vV|eE|gG|pP])-?\d{8}-?\d$',max_lenght=12, min_lenght=10,*args, **kwargs)
+    
     def clean(self, value):
-        """
-        Value can be a string either in the VXXXXXXXXX and GXXXXXXXXX format.
-        """
-        value = super(VERIFField, self).clean(value)
+        """Value can be either a string in A-XXXXXXXX-X or AXXXXXXXXX format"""
+        value = super(RIFField, self).clean(value)
         if value in EMPTY_VALUES:
             return u''
-        #if not value.isdigit():
-        #    value = value.replace('.', '')
-        #if not value.isdigit():
-        #    raise ValidationError(self.error_messages['invalid'])
-        if len(value) not in (10, ):
-            raise ValidationError(self.error_messages['max_digits'])
+        value, cd = self.__canon(value)
+        if self.__calc_cd(value) != cd:
+            raise ValidationError(self.error_messages['checksum'])
+        return self.__format(value, cd)
 
+    def __canon(self, rif):
+        rif = rif.replace('-', '')
+        if rif[0].lower() in self.rif_first_char:
+            rif = rif.replace(rif[0], self.rif_first_char[rif[0].lower()])
+        else:
+            raise ValidationError(self.error_messages['invalid'])
+        return rif[:-1], rif[-1]
+
+    def __calc_cd(self, rif):
+        # Son en total 10 digitos, el primero es un valor del 1 al 5 que representa el tipo de 
+        # registro. El ultimo es un dígito de chequeo y los ocho números intermedios es la identificación
+        mults = (4, 3, 2, 7, 6, 5, 4, 3, 2)
+        tmp = sum([m * int(rif[idx]) for idx, m in enumerate(mults)])
+        return str(11 - tmp % 11)
+
+    def __format(self, rif, check_digit=None):
+        if check_digit == None:
+            check_digit = rif[-1]
+            rif = rif[:-1]
+        return u'%s%s%s' % (rif[:2], rif[2:], check_digit)
 
 class VEPhoneField(RegexField):
     """
