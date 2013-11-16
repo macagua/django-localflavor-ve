@@ -91,22 +91,22 @@ class VERIFField(RegexField):
     See http://www.seniat.gob.ve/portal/page/portal/MANEJADOR_CONTENIDO_SENIAT/05MENU_HORIZONTAL/5.1ASISTENCIA_CONTRIBUYENTE/5.1.2ORIENTACION_GENERA/5.1.2.2TRAMITES_ADMINISTR/INFORMACION_01_GENERAL.pdf
     """
 
-    VENEZOLANO = '1'
-    EXTRANJERO = '2'
-    JURIDICO = '3'
-    FIRMA_PERSONAL = '4'
-    GUBERNAMENTAL = '5'
+    VENEZUELAN_CITIZEN = '1'
+    FOREIGN_CITIZEN = '2'
+    COMMERCIAL = '3'
+    PERSONAL_FIRM = '4'
+    GOVERMENT = '5'
     rif_first_char = {
-        'v':VENEZOLANO,
-        'e':EXTRANJERO,
-        'j':JURIDICO,
-        'p':FIRMA_PERSONAL,
-        'g':GUBERNAMENTAL,
+        'v':VENEZUELAN_CITIZEN,
+        'e':FOREIGN_CITIZEN,
+        'j':COMMERCIAL,
+        'p':PERSONAL_FIRM,
+        'g':GOVERMENT,
         }
     
     default_error_messages = {
-        'invalid': _('Introduzca un RIF valido de la forma A-XXXXXXXX-X o AXXXXXXXXX.'),
-        'checksum': _('RIF invalido.'),
+        'invalid': _('Enter a valid RIF in the form: A-XXXXXXXX-X o AXXXXXXXXX.'),
+        'checksum': _('Invalid RIF.'),
     }
 
     def __init__(self, *args, **kwargs):
@@ -131,10 +131,15 @@ class VERIFField(RegexField):
         return rif[:-1], rif[-1]
 
     def __calc_cd(self, rif):
-        # Son en total 10 digitos, el primero es un valor del 1 al 5 que representa el tipo de 
-        # registro. El ultimo es un dígito de chequeo y los ocho números intermedios es la identificación
-        mults = (4, 3, 2, 7, 6, 5, 4, 3, 2)
-        tmp = sum([m * int(rif[idx]) for idx, m in enumerate(mults)])
+        '''
+            There are 10 digits total, the first digit is in 1-5 range and represents the
+            registration type (VENEZUELAN_CITIZEN, FOREIGN_CITIZEN, COMMERCIAL, PERSONAL_FIRM
+            GOVERMENT). The next eight digits is the identification number and the last digit
+            is a check digit
+        '''
+
+        multipliers = (4, 3, 2, 7, 6, 5, 4, 3, 2)
+        tmp = sum([m * int(rif[idx]) for idx, m in enumerate(multipliers)])
         return str(11 - tmp % 11)
 
     def __format(self, rif, check_digit=None):
